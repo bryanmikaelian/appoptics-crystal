@@ -1,10 +1,10 @@
-module Appoptics
+module AppOptics
   class Measurements
-    PATH = "/v1/measurements"
+    PATH = "/measurements"
 
     # Generates a one off metric
-    def self.add(name: String, value: Number, tags: Hash)
-      Appoptics::Client.submit PATH, { name: name, value: value, tags: tags }
+    def self.measure(name, value : Number, tags : Hash = Hash(String, String).new)
+      AppOptics::Client.submit PATH, payload: { "measurements" => [{ "name" => name, "value" => value, "tags" => tags }] }
     end
   end
 end
